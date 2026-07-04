@@ -74,6 +74,25 @@ We gave you a **starter package** at `src/task1/vanguard_arm/` — read every fi
 
 **The mental model for our 3-DOF arm:** joint 1 spins the whole arm to *face* the target (`atan2(y, x)`). That reduces the rest to a flat **2-link arm in a vertical plane** — a classic law-of-cosines problem for the shoulder and elbow. Solve that on paper, then code it into `inverse_kinematics()`.
 
+### 🎬 The Task 1 Video Path (watch in this order)
+
+No single video covers our exact arm end-to-end — real robotics is assembled from pieces. This ordered path takes you from zero to a working IK node. **~3–4 hours of video total.** (All links verified July 2026; if one moved, the channel name is enough to find it.)
+
+| Step | Watch / read | Covers | Time |
+|---|---|---|---|
+| 1️⃣ **Understand URDF** | 🎥📖 Articulated Robotics — [Describing robots with URDF](https://articulatedrobotics.xyz/tutorials/ready-for-ros/urdf/) | What links & joints are, how a robot is a tree | ~30 min |
+| 2️⃣ **See an arm in RViz** | 📖 The Construct — [Robotic Manipulator Pt.1: Basic URDF & RViz](https://www.theconstruct.ai/ros-projects-robotic-manipulator-part-1-basic-urdf-rviz/) | An actual multi-joint arm shown in RViz with sliders | ~40 min |
+| 3️⃣ **Working arm repo to copy the pattern** | 💻 [olmerg/lesson_urdf](https://github.com/olmerg/lesson_urdf) — ROS 2 arm in RViz via `robot_state_publisher` + `joint_state_publisher_gui` | The exact node setup our starter uses | ~20 min |
+| 4️⃣ **Frames & TF** | 🎥📖 Articulated Robotics — [The Transform System (tf2)](https://articulatedrobotics.xyz/tutorials/ready-for-ros/tf/) | Why the gripper's position is a chain of transforms | ~25 min |
+| 5️⃣ **The IK math (core!)** | 🎥 [Easy inverse kinematics for robot arms](https://www.youtube.com/watch?v=Q-UeYEpwXXU) + 🎥 [Arduino IK for a 3-DOF arm](https://www.youtube.com/watch?v=Y8ueTjqCcAg) | Deriving joint angles from an (x,y,z) target — high-school trig, no ROS needed | ~40 min |
+| 6️⃣ **IK, written deep-dive** | 📝 [Alan Zucconi — Inverse Kinematics in 3D](https://www.alanzucconi.com/2020/09/14/inverse-kinematics-in-3d/) + 📝 [Automatic Addison — analytic IK guide](https://automaticaddison.com/the-ultimate-guide-to-inverse-kinematics-for-6dof-robot-arms/) | The exact geometry, in text you can re-read while coding | ~30 min |
+| 7️⃣ **Publish it as a ROS node** | 📖 [ROS 2 Humble — Using URDF with robot_state_publisher](https://docs.ros.org/en/humble/Tutorials/Intermediate/URDF/Using-URDF-with-Robot-State-Publisher-cpp.html) | Writing a node that publishes `JointState` (Python equivalent of what our `ik_node.py` does) | ~30 min |
+| ⭐ **Bonus: Gazebo + ros2_control** | 🎥📖 Articulated Robotics — [ros2_control Concepts & Simulation](https://articulatedrobotics.xyz/tutorials/mobile-robot/applications/ros2_control-concepts/) | Driving the arm with a real controller in Gazebo | ~35 min |
+
+**How to actually use this:** don't binge all 7 first. Watch 1–3, then *open the starter package and play with `display.launch.py`*. Watch 5–6 with pen and paper and derive the IK yourself. Only then write `inverse_kinematics()`. Video → do → video → do beats video → video → video.
+
+> ⚠️ Steps 5's videos use Arduino, not ROS — that's fine and intentional. **The IK math is identical everywhere**; only "where the angles get sent" changes. Our starter package already handles the ROS side, so you're really just porting the math into `inverse_kinematics()`.
+
 ---
 
 ## 3. Task 2 — The Kalman Filter
