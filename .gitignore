@@ -1,0 +1,22 @@
+# ROS 2 / colcon build artifacts — never commit these
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Keep large media out of the repo; link them in your report instead.
+# (Comment these out if your task deliverable *requires* committing images.)
+*.mp4
+*.mov
+*.zip
+
+# Hidden ground truth — evaluators regenerate via grading/make_challenge.py
+grading/challenge_truth.npy

@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!--
+  Starter 3-DOF arm. This is a WORKING reference arm so `display.launch.py`
+  shows something immediately and you can drag the joints in the GUI.
+
+  Your job: understand it, then make it yours. Tune the link lengths, joint
+  limits, and axes to match the arm you design. The three link lengths below
+  are what your inverse-kinematics math will use — keep them in sync!
+
+  Frame convention: joint1 rotates about Z (base yaw), joint2 and joint3 rotate
+  about Y (shoulder & elbow pitch). Links point along +Z by default here.
+-->
+<robot name="vanguard_arm">
+
+  <material name="steel"><color rgba="0.6 0.6 0.65 1.0"/></material>
+  <material name="orange"><color rgba="0.9 0.5 0.1 1.0"/></material>
+
+  <!-- ===== Base ===== -->
+  <link name="base_link">
+    <visual>
+      <geometry><cylinder radius="0.06" length="0.05"/></geometry>
+      <material name="steel"/>
+    </visual>
+  </link>
+
+  <!-- ===== Joint 1 (base yaw, about Z) ===== -->
+  <joint name="joint1" type="revolute">
+    <parent link="base_link"/>
+    <child link="link1"/>
+    <origin xyz="0 0 0.025" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-3.14" upper="3.14" effort="10" velocity="2.0"/>
+  </joint>
+  <link name="link1">
+    <visual>
+      <origin xyz="0 0 0.10" rpy="0 0 0"/>
+      <geometry><box size="0.04 0.04 0.20"/></geometry>
+      <material name="orange"/>
+    </visual>
+  </link>
+
+  <!-- ===== Joint 2 (shoulder pitch, about Y) ===== -->
+  <joint name="joint2" type="revolute">
+    <parent link="link1"/>
+    <child link="link2"/>
+    <origin xyz="0 0 0.20" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-3.14" upper="3.14" effort="10" velocity="2.0"/>
+  </joint>
+  <link name="link2">
+    <visual>
+      <origin xyz="0 0 0.10" rpy="0 0 0"/>
+      <geometry><box size="0.035 0.035 0.20"/></geometry>
+      <material name="steel"/>
+    </visual>
+  </link>
+
+  <!-- ===== Joint 3 (elbow pitch, about Y) ===== -->
+  <joint name="joint3" type="revolute">
+    <parent link="link2"/>
+    <child link="link3"/>
+    <origin xyz="0 0 0.20" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-3.14" upper="3.14" effort="10" velocity="2.0"/>
+  </joint>
+  <link name="link3">
+    <visual>
+      <origin xyz="0 0 0.09" rpy="0 0 0"/>
+      <geometry><box size="0.03 0.03 0.18"/></geometry>
+      <material name="orange"/>
+    </visual>
+  </link>
+
+  <!-- ===== Gripper tip (a fixed frame at the end — this is what must reach the target) ===== -->
+  <joint name="tip_joint" type="fixed">
+    <parent link="link3"/>
+    <child link="gripper_tip"/>
+    <origin xyz="0 0 0.18" rpy="0 0 0"/>
+  </joint>
+  <link name="gripper_tip">
+    <visual>
+      <geometry><sphere radius="0.02"/></geometry>
+      <material name="orange"/>
+    </visual>
+  </link>
+
+</robot>

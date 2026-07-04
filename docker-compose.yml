@@ -1,0 +1,18 @@
+services:
+  vanguard:
+    # We publish a prebuilt multi-arch image (amd64 + Apple-Silicon arm64), so
+    # `docker compose up -d` just PULLS it — no 20-minute build on your laptop.
+    # Want to build it yourself instead? run `docker compose up -d --build`.
+    image: ghcr.io/krithinp/vanguard-inductions:latest
+    build: .
+    container_name: vanguard-inductions
+    ports:
+      - "8080:6080"          # open http://localhost:8080 for the desktop
+    volumes:
+      - ./src:/root/ros2_ws/src   # your work lives here and persists on your host
+      - ./assets:/root/assets     # shared datasets (Task 3 benchmark images)
+    shm_size: "1gb"          # Gazebo/RViz need shared memory; too little = crashes
+    environment:
+      - RESOLUTION=1600x900
+    stdin_open: true
+    tty: true

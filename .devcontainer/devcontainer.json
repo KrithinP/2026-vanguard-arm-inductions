@@ -1,0 +1,16 @@
+{
+  "name": "Vanguard Inductions (ROS 2 Humble)",
+  "comment": "Zero-install path: open this repo in GitHub Codespaces (Code > Codespaces > Create). Runs in your browser on cloud amd64 hardware — the reliable option if your laptop is a Mac (Apple Silicon) or too weak for local Docker/Gazebo.",
+  "build": { "dockerfile": "../Dockerfile" },
+  "forwardPorts": [6080],
+  "portsAttributes": {
+    "6080": { "label": "noVNC Desktop", "onAutoForward": "openPreview" }
+  },
+  "workspaceFolder": "/root/ros2_ws",
+  "workspaceMount": "source=${localWorkspaceFolder}/src,target=/root/ros2_ws/src,type=bind",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-python.python", "ms-iot.vscode-ros"]
+    }
+  }
+}
